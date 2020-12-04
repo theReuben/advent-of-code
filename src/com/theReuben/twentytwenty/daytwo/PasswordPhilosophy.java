@@ -21,12 +21,21 @@ public class PasswordPhilosophy {
 
         List<Triple<Pair<Integer, Integer>, String, String>> inputList = readInTxt("src/com/theReuben/twentytwenty/daytwo/PasswordPhilosophy.txt");
 
+        LOG.info("===============PART ONE===============");
+
         long numberValid = countValidPassword(inputList);
 
         LOG.info("Number of valid passwords : {}", numberValid);
 
+        LOG.info("===============PART TWO===============");
+
+        long numberValidPartTwo = countValidPasswordPartTwo(inputList);
+
+        LOG.info("Number of valid passwords : {}", numberValidPartTwo);
+
     }
 
+    // PART ONE
     private static long countChars(String str, char c) {
         return str.chars().filter(ch -> ch == c).count();
     }
@@ -42,6 +51,16 @@ public class PasswordPhilosophy {
 
     private static long countValidPassword(List<Triple<Pair<Integer, Integer>, String, String>> input) {
         return input.stream().mapToLong(in -> (isValidPassword(in) ? 1 : 0)).sum();
+    }
+
+    // PART TWO
+    private static boolean isValidPasswordPartTwo(Triple<Pair<Integer, Integer>, String, String> triple) {
+        return triple.getRight().charAt(triple.getLeft().getLeft()-1) == triple.getMiddle().charAt(0)
+                ^ triple.getRight().charAt(triple.getLeft().getRight()-1) == triple.getMiddle().charAt(0);
+    }
+
+    private static long countValidPasswordPartTwo(List<Triple<Pair<Integer, Integer>, String, String>> input) {
+        return input.stream().mapToLong(in -> (isValidPasswordPartTwo(in) ? 1 : 0)).sum();
     }
 
     // Util
