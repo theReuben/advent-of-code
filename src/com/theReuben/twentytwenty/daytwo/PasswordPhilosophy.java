@@ -1,14 +1,10 @@
 package com.theReuben.twentytwenty.daytwo;
 
-import com.theReuben.twentytwenty.dayone.ReportRepair;
-import org.apache.commons.lang3.tuple.Pair;
-import org.apache.commons.lang3.tuple.Triple;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -41,7 +37,7 @@ public class PasswordPhilosophy {
     }
 
     private static boolean isValidPassword(PasswordData passwordData) {
-        long count = countChars(passwordData.getPassword(), passwordData.getCharacter().charAt(0));
+        long count = countChars(passwordData.getPassword(), passwordData.getCharacter());
 
         int lb = passwordData.getLowerBound();
         int up = passwordData.getUpperBound();
@@ -55,8 +51,8 @@ public class PasswordPhilosophy {
 
     // PART TWO
     private static boolean isValidPasswordPartTwo(PasswordData passwordData) {
-        return passwordData.getPassword().charAt(passwordData.getLowerBound()-1) == passwordData.getCharacter().charAt(0)
-                ^ passwordData.getPassword().charAt(passwordData.getUpperBound()-1) == passwordData.getCharacter().charAt(0);
+        return passwordData.getPassword().charAt(passwordData.getLowerBound()-1) == passwordData.getCharacter()
+                ^ passwordData.getPassword().charAt(passwordData.getUpperBound()-1) == passwordData.getCharacter();
     }
 
     private static long countValidPasswordPartTwo(List<PasswordData> input) {
@@ -80,7 +76,7 @@ public class PasswordPhilosophy {
                 passwordData.setUpperBound(Integer.parseInt(dataArrayRange[1]));
 
                 // Extract char
-                passwordData.setCharacter(dataArray[1].split(":")[0]);
+                passwordData.setCharacter(dataArray[1].split(":")[0].charAt(0));
 
                 // Extract password
                 passwordData.setPassword(dataArray[2]);
@@ -98,7 +94,7 @@ public class PasswordPhilosophy {
     private static class PasswordData {
         private int lowerBound;
         private int upperBound;
-        private String character;
+        private char character;
         private String password;
 
         public PasswordData() {
@@ -120,11 +116,11 @@ public class PasswordPhilosophy {
             this.upperBound = upperBound;
         }
 
-        public String getCharacter() {
+        public char getCharacter() {
             return character;
         }
 
-        public void setCharacter(String character) {
+        public void setCharacter(char character) {
             this.character = character;
         }
 
