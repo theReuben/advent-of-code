@@ -57,7 +57,7 @@ public class TobogganTrajectory {
     private static int countTrees(List<String> list, int movesRight, int movesDown) {
         int totalTrees = 0;
         final int[] currentPosition = {0};
-        for (int level = 1; level < list.size(); level += movesDown) {
+        for (int level = movesDown; level < list.size(); level += movesDown) {
             totalTrees += isTree(list.get(level), determineCurrentPosition(currentPosition, movesRight, list.get(level))) ? 1 : 0;
         }
         return totalTrees;
