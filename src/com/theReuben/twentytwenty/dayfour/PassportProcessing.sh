@@ -1,0 +1,1 @@
+cat ./PassportProcessing.txt | sed -z 's/ /\n/g' > ./PassportProcessingFlat.txt
